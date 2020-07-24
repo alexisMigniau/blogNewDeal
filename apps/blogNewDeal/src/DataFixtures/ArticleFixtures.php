@@ -9,6 +9,7 @@ class ArticleFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+        // Fixture du 1er article
         $titre = "La presse écrite face au développement d’internet";
         $contenu = "De nos jours, les réseaux sociaux tiennent un rôle d’information important auprès des internautes notamment des jeunes, les personnes de plus de 60 ans restent globalement fidèles aux journaux papiers. La croissance d’internet et des réseaux sociaux laisse à penser que le journalisme tel que nous l’entendons en tant que profession soit menacé par ces nouvelles technologies. Grâce à internet, nous obtenons l’information rapidement et en grande quantité mais ne dit-on pas qu’être plus informé ne signifie pas forcément être mieux informé. Rechercher et trier les bonnes informations parmi toutes les données qui n’ont de cesse de s’accroître continuellement se révèle être particulièrement chronophage.
 
@@ -34,6 +35,25 @@ class ArticleFixtures extends Fixture
         $article->setPathImg("reseau-sociaux.jpg");
 
         $manager->persist($article);
+
+        //Fixture du 2 ème article
+        $article2 = new Article();
+        $article2->setTitre("La maison mère de Leboncoin rachète les petites annonces d’eBay pour 8 milliards d’euros");
+        $article2->setContenu("Le spécialiste norvégien des annonces en ligne Adevinta, maison mère de Leboncoin, a annoncé, mardi 21 juillet, le rachat des actifs du géant américain eBay dans ce domaine pour près de 9,2 milliards de dollars, soit 8 milliards d’euros, revendiquant la naissance du numéro un mondial du secteur.
+
+        Pour prendre le contrôle d’eBay Classified Groups qui inclut notamment les sites Gumtree et Kijiji, Adevinta va verser à eBay 2,5 milliards de dollars en numéraire et 540 millions d’actions correspondant à 44 % de son capital, a annoncé l’entreprise norvégienne dans un communiqué.
+        
+        « Avec l’acquisition d’eBay Classifieds Group, Adevinta devient la plus grande entreprise de petites annonces en ligne au monde, avec un portefeuille unique de grandes marques de marchés » en ligne, a fait valoir le directeur général du groupe, Rolv Erik Ryssdal. La crise sanitaire déclenchée par le nouveau coronavirus a accéléré la migration des consommateurs vers les achats en ligne alors que, dans de nombreux pays, les magasins ont dû tirer le rideau temporairement, voire définitivement.
+        Ensemble, selon Adevinta, les deux groupes seront leaders dans 20 pays. En 2019, leur chiffre d’affaires combiné était de 1,8 milliard de dollars – sensiblement plus que leurs poursuivants immédiats, Axel Springer Classifieds (1,33 milliard) et Prosus Classifieds (1,28 milliard) – et leur résultat brut d’exploitation (EBITDA) proche de 600 millions de dollars. Les synergies attendues du rachat sont comprises entre 150 et 185 millions de dollars au niveau de l’EBITDA au bout de trois ans. Des chiffres jugés ambitieux par les analystes.
+
+        Grâce aux importantes liquidités générées par ses activités, Adevinta dit vouloir continuer de grossir. « Je suis certain que nous saisirons les opportunités de consolider davantage le secteur dans les années à venir, mais on est là dans le moyen terme », a expliqué M. Ryssdal.
+        
+        Né l’an dernier d’une scission avec le groupe de médias Schibsted, qui restait jusqu’ici son actionnaire majoritaire avec environ 59 % du capital, Adevinta est déjà présent dans 15 pays en Europe – avec sa pépite Leboncoin en France –, en Amérique latine et en Afrique du Nord. Si sa part descendra à 33 % des actions ordinaires à l’issue de la transaction, Schibsted restera le principal maître à bord, au moins dans un premier temps, avec environ 39,5 % des droits de vote alors que ceux d’eBay seront plafonnés à 33,3 %.");
+        
+        $article2->setPathImg("ebay.jpg");
+
+        $manager->persist($article2);
+
         $manager->flush();
     }
 }
