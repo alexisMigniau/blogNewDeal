@@ -1,0 +1,32 @@
+version:  '3.7'
+services:
+    mysql:
+        image: mysql:8.0
+        restart: on-failure
+        environment:
+            MYSQL_ROOT_PASSWORD: root_password
+            MYSQL_DATABASE: db_name
+            MYSQL_USER : db_username
+            MYSQL_PASSWORD : db_password
+        ports:
+            - '3001:3306'
+    nginx:
+        image: nginx:1.19.0-alpine
+        restart: on-failure
+        volumes:
+            - './apps/blogNewDeal/:/usr/src/app'
+            - './docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro'
+        ports:
+            - '3000:80'
+        depends_on:
+            - php
+    php:
+        build:
+            context: .
+            dockerfile: docker/php/Dockerfile
+        volumes: 
+            - './apps/blogNewDeal/:/usr/src/app'
+        restart: on-failure
+        env_file:
+            - .env
+        user: 1000:1000

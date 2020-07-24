@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GestionArticleController!{% endblock %}
+
+{% block body %}
+        <!-- Main Content -->
+        <div class="container">
+            <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+            {% for article in listeArticles %}
+            <hr>
+                <div class="post-preview">
+                    <a href="post.html">
+                        <h2 class="post-title">
+                        {{ article.titre }}
+                        </h2>
+                        <h3 class="post-subtitle">
+                        {{ article.contenu[:50] ~ '...' }}
+                        </h3>
+                    </a>
+                    <p class="post-meta">Postée le {{ article.dateCreation|date("d/m/Y") }}{% if article.dateModification != NULL %}, Mise à jour le {{ article.dateModification|date("d/m/Y") }}{% endif %}</p>
+                </div>
+            {% endfor %}
+            </div>
+            </div>
+        </div>
+{% endblock %}
