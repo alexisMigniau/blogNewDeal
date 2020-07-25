@@ -3,13 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\ArticleType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class GestionArticleController extends AbstractController
 {
     /**
-     * @Route("/", name="gestion_article")
+     * @Route("/", name="liste_article")
      */
     public function index()
     {
@@ -39,6 +40,20 @@ class GestionArticleController extends AbstractController
 
         return $this->render('gestion_article/show.html.twig', [
             'article' => $article
+        ]);
+    }
+
+    /**
+     * @Route("/ajoutArticle", name="page_ajout_article")
+     */
+    public function pageAjoutArticle()
+    {
+        $article = new Article();
+
+        $form = $this->createForm(ArticleType::class, $article);
+
+        return $this->render('gestion_article/ajoutArticle.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }

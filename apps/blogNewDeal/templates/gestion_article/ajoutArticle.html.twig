@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GestionArticleController!{% endblock %}
+
+{% block body %}
+    <header class="masthead" style="background-image: url('{{ asset('public/img/home-bg.jpg')}}')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>Création d'un nouvel article</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<div class="container">
+        <div class="row">
+                <div class="col-lg-12 col-md-10 mx-auto">
+                    <h3>Formulaire de création d'un nouvel article</h3>
+                </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-10 mx-auto">
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        {{ form_label(form.titre , 'Titre') }}
+                        {{ form_widget(form.titre) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.pathImg , 'Image d\'illustration') }}
+                        {{ form_widget(form.pathImg) }}
+                    </div>
+                    <div class="form-group">
+                        <img id='img-upload'/>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.contenu , 'Contenu') }}
+                        {{ form_widget(form.contenu, {'attr': {'style':"height:500px;"} }) }}
+                    </div>
+                    <div class="form-groupe">
+                        <button type="submit" class="btn btn-success btn-block">Publier l'article</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>
+
+
+<script type="text/javascript">
+    $( document ).ready(function() {
+
+        // Ecrite du nom du fichier dans le input
+        $('input[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            $('.custom-file-label').html(fileName);
+        });
+
+        // Prévisualisation de l'image 
+        // Source : https://bootsnipp.com/snippets/eNbOa
+        $(document).on('change', 'input[type="file"]', function() {
+		var input = $(this),
+			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+		    input.trigger('fileselect', [label]);
+		});
+
+		$('input[type="file"]').on('fileselect', function(event, label) {
+		    
+		    var input = $(this).parents('.input-group').find(':text'),
+		        log = label;
+		    
+		    if( input.length ) {
+		        input.val(log);
+		    }
+		});
+
+		function readURL(input) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        
+		        reader.onload = function (e) {
+		            $('#img-upload').attr('src', e.target.result);
+		        }
+		        
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+
+		$("input[type='file']").change(function(){
+		    readURL(this);
+		}); 	
+    });
+</script>
+{% endblock %}
