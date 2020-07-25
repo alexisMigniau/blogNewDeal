@@ -1,6 +1,8 @@
-blogNewDeal
+Blog sous Symfony utilisant Docker pour un exercice de candidature chez blogNewDeal
 
-Blog sous Symfony utilisant Docker pour un exercice de candidature à blogNewDeal
+Fonctionnalité
+- Liste des articles
+- Création d'article via un panel admin grâce à un éditeur 
 
 22/07/2020
 
