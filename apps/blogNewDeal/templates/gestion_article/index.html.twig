@@ -9,7 +9,7 @@
         <div class="overlay"></div>
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="col-lg-6 col-md-10 mx-auto">
                     <div class="site-heading">
                         <h1>Blog de développement</h1>
                     </div>
@@ -21,8 +21,8 @@
 <!-- Main Content -->
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
             {% for article in listeArticles %}
+            <div class="col-lg-8">
             <hr>
                 <div class="post-preview">
                     <a href="{{ url('show_article' , {'id_article' : article.id} ) }}">
@@ -36,8 +36,17 @@
                     </a>
                     <p class="post-meta">Postée le {{ article.dateCreation|date("d/m/Y") }}{% if article.dateModification != NULL %}, Mise à jour le {{ article.dateModification|date("d/m/Y") }}{% endif %}</p>
                 </div>
-            {% endfor %}
             </div>
+                {% if admin == true %}
+                <div class="col-sm-4">
+                    <br />
+                    <a class="btn btn-primary btn-sm btn-block" href="{{ url('modifier_article' , {'id_article' : article.id} ) }}" role="button"><i class="fas fa-edit"></i> Modifier l'article</a>
+                    <button type="button" class="btn btn-danger btn-sm btn-block" data-toggle="modal" data-target="#modalSupprimer">
+                        <i class="fas fa-trash-alt"></i> Supprimer l'article
+                    </button>
+                </div>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

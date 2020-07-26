@@ -60,7 +60,7 @@ class GestionArticleController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             
             // Récupération de l'image
-            $uploadedImg = $form['pathImg']->getData();
+            $uploadedImg = $request->files->get('pathImg');
             $destination = $this->getParameter('kernel.project_dir').'/public/uploadImg';
             
             // Génération d'un nouveau nom pour que chaque nom de fichier soit unique
@@ -81,6 +81,78 @@ class GestionArticleController extends AbstractController
 
         return $this->render('gestion_article/ajoutArticle.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/supprimerArticle/{id_article}", name="supprimer_article")
+     */
+    public function supprimerArticle($id_article)
+    {
+        // Récupération de l'article à supprimer
+        $entityManager = $this->getDoctrine()->getManager();
+        
+        $article = $this->getDoctrine()
+            ->getRepository(Article::class)
+            ->findOneById($id_article);
+
+        $entityManager->remove($article);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'L\'article à été supprimé');
+
+        return $this->redirectToRoute('liste_article');
+    }
+
+    /**
+     * @Route("/modifierArticle/{id_article}", name="modifier_article")
+     */
+    public function modifierArticle(Request $request, $id_article)
+    {
+        // Récupération de l'article à supprimer
+        $entityManager = $this->getDoctrine()->getManager();
+        
+        $article = $this->getDoctrine()
+            ->getRepository(Article::class)
+            ->findOneById($id_article);
+
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            
+            // Récupération de l'image
+            $uploadedImg = $request->files->get('pathImg');
+            $destination = $this->getParameter('kernel.project_dir').'/public/uploadImg';
+            
+            if($uploadedImg != NULL)
+            {
+                // Génération d'un nouveau nom pour que chaque nom de fichier soit unique
+                $fileName = pathinfo($uploadedImg->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFileName = $fileName .'-'.uniqid().'.'. $uploadedImg->guessExtension();
+
+                $uploadedImg->move(
+                    $destination,
+                    $newFileName
+                );
+
+                $article->setPathImg($newFileName);
+            }
+
+            $article->setDateModification(new \DateTime());
+
+            $entityManager->persist($article);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('liste_article');
+        }
+
+        return $this->render('gestion_article/modifierArticle.html.twig', [
+            'form' => $form->createView(),
+            'article' => $article
         ]);
     }
 }

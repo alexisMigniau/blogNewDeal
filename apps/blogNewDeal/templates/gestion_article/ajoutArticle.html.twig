@@ -30,8 +30,9 @@
                         {{ form_widget(form.titre) }}
                     </div>
                     <div class="form-group">
-                        {{ form_label(form.pathImg , 'Image d\'illustration') }}
-                        {{ form_widget(form.pathImg, {'attr' : {'accept' : "image/*"} }) }}
+                        <label for="pathImg" class="required">Image d'illustration</label>
+                        <div class="custom-file"><input type="file" id="pathImg" name="pathImg" required="required" accept="image/*" class="custom-file-input"><label for="pathImg" class="custom-file-label"></label>
+                        </div>
                     </div>
                     <div class="form-group">
                         <img id='img-upload'/>
@@ -49,7 +50,7 @@
         </div>
 </div>
 
-
+{% block scriptFormArticle %}
 <script type="text/javascript">
     $( document ).ready(function() {
 
@@ -94,4 +95,5 @@
 		}); 	
     });
 </script>
+{% endblock %}
 {% endblock %}
