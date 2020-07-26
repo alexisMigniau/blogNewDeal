@@ -41,7 +41,7 @@
                 <div class="col-sm-4">
                     <br />
                     <a class="btn btn-primary btn-sm btn-block" href="{{ url('modifier_article' , {'id_article' : article.id} ) }}" role="button"><i class="fas fa-edit"></i> Modifier l'article</a>
-                    <button type="button" class="btn btn-danger btn-sm btn-block" data-toggle="modal" data-target="#modalSupprimer">
+                    <button type="button" class="btn btn-danger btn-sm btn-block btnModalSupprimer" data-toggle="modal" data-target="#modalSupprimer" data-url="{{ url('supprimer_article', {'id_article' : article.id}) }}">
                         <i class="fas fa-trash-alt"></i> Supprimer l'article
                     </button>
                 </div>
@@ -49,4 +49,34 @@
             {% endfor %}
         </div>
     </div>
+
+    <!-- Modal de suppression des articles -->
+    <div class="modal fade" id="modalSupprimer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Supprimer un article</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Voulez-vous supprimer l'article ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <a id="btnSupprimer" role="button" class="btn btn-primary btn-sm">Confirmer</a>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            $('.btnModalSupprimer').click(function (){
+                var url = $(this).data('url');
+                $('#btnSupprimer').attr("href", url);
+            })
+        });
+    </script>
 {% endblock %}

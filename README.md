@@ -4,6 +4,7 @@ Fonctionnalité
 - Liste des articles
 - Création d'article via un panel admin grâce à un éditeur WYSIWYG
 - Modification d'article
+- Supprimer des articles
 
 22/07/2020
 
