@@ -31,7 +31,7 @@
                         {{ article.titre }}
                         </h3>
                         <h5 class="post-subtitle">
-                        {{ article.contenu[:150]|raw }} ...
+                        {{ article.contenu[:250]|raw }}... <strong>Lire la suite</strong>
                         </h5>
                     </a>
                     <p class="post-meta">Postée le {{ article.dateCreation|date("d/m/Y") }}{% if article.dateModification != NULL %}, Mise à jour le {{ article.dateModification|date("d/m/Y") }}{% endif %}</p>

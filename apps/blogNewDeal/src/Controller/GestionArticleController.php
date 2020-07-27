@@ -39,9 +39,14 @@ class GestionArticleController extends AbstractController
             ->getRepository(Article::class)
             ->findOneById($id_article);
 
-        return $this->render('gestion_article/show.html.twig', [
-            'article' => $article
-        ]);
+        if($article == NULL)
+        {
+            throw $this->createNotFoundException('Cette article n\'existe pas');
+        } else {
+            return $this->render('gestion_article/show.html.twig', [
+                'article' => $article
+            ]);
+        }
     }
 
     /**
@@ -76,6 +81,8 @@ class GestionArticleController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
+            $this->addFlash('success', 'L\'article à été créé');
+
             return $this->redirectToRoute('liste_article');
         }
 
@@ -96,6 +103,9 @@ class GestionArticleController extends AbstractController
             ->getRepository(Article::class)
             ->findOneById($id_article);
 
+        if($article == NULL)
+            throw $this->createNotFoundException('Cette article n\'existe pas');
+
         $entityManager->remove($article);
         $entityManager->flush();
 
@@ -115,6 +125,9 @@ class GestionArticleController extends AbstractController
         $article = $this->getDoctrine()
             ->getRepository(Article::class)
             ->findOneById($id_article);
+
+        if($article == NULL)
+            throw $this->createNotFoundException('Cette article n\'existe pas');
 
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
@@ -146,6 +159,8 @@ class GestionArticleController extends AbstractController
 
             $entityManager->persist($article);
             $entityManager->flush();
+
+            $this->addFlash('success', 'L\'article à été modifié');
 
             return $this->redirectToRoute('liste_article');
         }
